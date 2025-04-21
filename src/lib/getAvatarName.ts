@@ -1,12 +1,12 @@
 export const getAvatarName = (name : string)=>{
     const result = name?.split(" ")
-    let dispaly = ""
+    let display = ""
 
     if(result?.length > 1){
-        dispaly = `${result?.[0]?.[0]}${result?.[1]?.[0]}`
+        display = `${result?.[0]?.[0]}${result?.[1]?.[0]}`
     }else{
-        dispaly = result?.[0]?.[0]
+        display = result?.[0]?.[0]
     }
 
-    return dispaly
+    return display
 }
