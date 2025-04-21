@@ -1,103 +1,54 @@
-import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-6 text-white">
+      <section className="flex flex-col items-center justify-center text-center py-24 px-6">
+        <h1 className="text-5xl font-extrabold mb-4 drop-shadow-lg">
+          Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-pink-300">Weblit</span>
+        </h1>
+        <p className="text-lg max-w-2xl leading-relaxed text-white/90 mb-8">
+          The ultimate online editor for HTML, CSS, and JavaScript. Instantly preview, collaborate, and unleash your web creativity.
+        </p>
+        <Link href="/login">
+          <button className="bg-white cursor-pointer text-indigo-700 font-bold px-10 py-4 rounded-full shadow-xl hover:bg-indigo-100 transition duration-300">
+            Login to Start Creating
+          </button>
+        </Link>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <section className="bg-white text-gray-800 py-20 px-8 rounded-t-3xl shadow-inner">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-12 text-center">
+          <div>
+            <h3 className="text-2xl font-bold mb-2">Live Preview</h3>
+            <p>Instant feedback as you type HTML, CSS, and JS. See your changes immediately.</p>
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold mb-2">Collaboration Ready</h3>
+            <p>Work with friends or teammates in real-time. Code together from anywhere.</p>
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold mb-2">Simple & Fast</h3>
+            <p>A distraction-free interface that keeps you focused and productive.</p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      <section className="bg-gray-100 text-gray-800 py-20 px-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6">Why Choose Weblit?</h2>
+          <p className="mb-4">
+            Whether you're learning to code or rapidly prototyping a new UI, Weblit provides the tools and environment you need. It's perfect for students, developers, designers, and anyone who wants to bring their web ideas to life.
+          </p>
+          <p>
+            No setup required. Just open Weblit and start coding. It's that easy.
+          </p>
+        </div>
+      </section>
+
+      <footer className="text-center py-6 text-sm text-white/80">
+        &copy; {new Date().getFullYear()} Weblit. All rights reserved.
       </footer>
-    </div>
+    </main>
   );
 }
