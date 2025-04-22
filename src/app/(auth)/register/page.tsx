@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -21,19 +20,19 @@ import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
-    name: z.string({ message: "Name is required" }).min(3),
-    email: z.string({ message: "Email is required" }).email().min(5).max(50),
+    name: z.string({ message: "Name is required" }).min(3, "Name must be at least 3 characters"),
+    email: z.string({ message: "Email is required" }).email("Invalid email").min(5).max(50),
     password: z
       .string({ message: "Password is required" })
-      .min(8, { message: "Password must at least 8 characters" })
-      .regex(/[A-z]/, "Password at leat One Uppercase")
-      .regex(/[a-z]/, "Password at least one lowercase")
-      .regex(/[0-9]/, "Password at least one number")
-      .regex(/[@#$%^&*]/, "Password at least one special character"),
+      .min(8, { message: "Password must be at least 8 characters" })
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
+      .regex(/[@#$%^&*]/, "Password must contain at least one special character"),
     confirmPassword: z.string({ message: "Confirm password is required" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Password and confirm password must be same",
+    message: "Password and confirm password must match",
     path: ["confirmPassword"],
   });
 
@@ -41,7 +40,7 @@ const RegisterPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -56,12 +55,16 @@ const RegisterPage = () => {
       const response = await Axios.post("/api/auth/register", payload);
 
       if (response.status === 201) {
-        toast.success(response.data.message);
+        toast.success(response.data.message || "Registration successful");
         form.reset();
         router.push("/login");
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.error);
+      const message =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        "Something went wrong!";
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +73,9 @@ const RegisterPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 py-16 px-4">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-2xl text-white">
-        <h1 className="text-3xl font-bold text-center mb-6 drop-shadow-md">Create Your Account</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 drop-shadow-md">
+          Create Your Account
+        </h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
@@ -119,9 +124,9 @@ const RegisterPage = () => {
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
+                      type="password"
                       className="bg-white/20 border-white/30 placeholder-white text-white"
                       placeholder="Enter your password"
-                      type="password"
                       {...field}
                       disabled={isLoading}
                       value={field.value ?? ""}
@@ -139,9 +144,9 @@ const RegisterPage = () => {
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
                     <Input
+                      type="password"
                       className="bg-white/20 border-white/30 placeholder-white text-white"
                       placeholder="Confirm your password"
-                      type="password"
                       {...field}
                       disabled={isLoading}
                       value={field.value ?? ""}
@@ -161,7 +166,7 @@ const RegisterPage = () => {
           </form>
         </Form>
         <p className="text-sm text-center mt-6">
-          Already have an account? {" "}
+          Already have an account?{" "}
           <Link href="/login" className="text-white underline">
             Login
           </Link>
