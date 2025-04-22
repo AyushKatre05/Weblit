@@ -2,6 +2,16 @@ import { NextRequest,NextResponse } from "next/server";
 import { connectDB } from "@/config/connectDB";
 import ProjectModel from "@/models/ProjectModel";
 import { getServerSession } from "next-auth";
+import { DefaultSession } from "next-auth";
+
+// Extend the DefaultSession type to include 'id'
+declare module "next-auth" {
+  interface Session {
+    user?: {
+      id?: string | null;
+    } & DefaultSession["user"];
+  }
+}
 import { authOptions } from "@/lib/authOptions";
 import FileModel from "@/models/FileModel";
 import { hmltBoilerplateCode, scriptBoilrPlatCode, styleBoilrPlatCode } from "@/lib/sampleCode";
